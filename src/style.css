@@ -1,0 +1,70 @@
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  min-height: 100vh;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#a4-paper {
+  height: 200mm;
+  width: 297mm;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.calendar-title {
+  font-size: 1.5rem;
+  font-weight: 500;
+  border-bottom: 1px solid #e0e0e0;
+  margin-bottom: 5mm;
+  margin-top: 5mm;
+  width: 100%;
+}
+
+.ch-domain-text {
+  text-transform: capitalize;
+}
+
+.ch-subdomain-bg {
+  background-color: #f7f7f7;
+}
+
+.no-shadow {
+  box-shadow: none !important;
+}
+
+#print-button {
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  border-radius: 5px;
+  margin: 10mm;
+}
+
+@media print {
+  .hide-when-print {
+    display: none;
+  }
+}

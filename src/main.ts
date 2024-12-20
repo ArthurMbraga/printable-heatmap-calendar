@@ -1,6 +1,7 @@
 import "./style.css";
 import "cal-heatmap/cal-heatmap.css";
-
+import i18next from "i18next";
+import LanguageDetector from "i18next-browser-languagedetector";
 import CalHeatmap from "cal-heatmap";
 import CalendarLabel from "cal-heatmap/plugins/CalendarLabel";
 
@@ -8,15 +9,37 @@ const NUMBER_OF_CALENDARS = 4;
 const WEEK_START = 1;
 const LOCALE = "pt-BR";
 
+i18next
+  .use(LanguageDetector)
+  .init({
+    fallbackLng: "en",
+    resources: {
+      en: {
+        translation: {
+          "Calendar": "Calendar",
+        }
+      },
+      "pt-BR": {
+        translation: {
+          "Calendar": "Calendário",
+        }
+      }
+    }
+  });
+
 document.querySelector<HTMLDivElement>("#a4-paper")!.innerHTML = `
- ${Array.from({ length: NUMBER_OF_CALENDARS }, (_, i) => i + 1)
-   .map(
-     (i) => `
-      <div class="calendar-title"></div>
-      <div class="heatmap" id="cal-heatmap-${i}"></div>
-    `
-   )
-   .join("")}
+  <select id="locale-selector">
+    <option value="en">English</option>
+    <option value="pt-BR">Português (Brasil)</option>
+  </select>
+  ${Array.from({ length: NUMBER_OF_CALENDARS }, (_, i) => i + 1)
+    .map(
+      (i) => `
+        ${i !== 0 && `<div class="calendar-separator"></div>`}
+        <div class="heatmap" id="cal-heatmap-${i}"></div>
+      `
+    )
+    .join("")}
 `;
 
 const calendarLabelConfig = {
@@ -82,4 +105,10 @@ printButton.addEventListener("click", () => {
   document
     .querySelector<HTMLDivElement>("#a4-paper")!
     .classList.remove("no-shadow");
+});
+
+document.getElementById("locale-selector")!.addEventListener("change", (event) => {
+  const locale = (event.target as HTMLSelectElement).value;
+  i18next.changeLanguage(locale);
+  // Update your calendar or other elements based on the new locale
 });
